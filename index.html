@@ -13,16 +13,16 @@
 </head>
 <body>
   <h1>Моя теория простых чисел</h1>
-  <p>Простые числа, кроме 2 и 3, делятся на два типа: 6x+1 (7, 13, 19...) и 6x-1 (5, 11, 17...). Я придумал, как найти их по номерам в множествах:</p>
+  <p>Простые числа, кроме 2 и 3, бывают двух типов: 6x+1 (7, 13, 19...) и 6x-1 (5, 11, 17...). Я придумал, как определить их по номеру строки в таблице ниже:</p>
   <ul>
-    <li>Множество 6x+1 состоит из трёх подмножеств:
+    <li>Множество 6x+1 делится на три подмножества:
       <ol>
         <li>Составные типа (6x+1)(6y+1), номер строки: x*(y*6+1)+(y+1)</li>
         <li>Составные типа (6x-1)(6y-1), номер строки: x*(y*6-1)-(y-1)</li>
         <li>Простые типа 6x+1</li>
       </ol>
     </li>
-    <li>Множество 6x-1 состоит из трёх подмножеств:
+    <li>Множество 6x-1 делится на три подмножества:
       <ol>
         <li>Составные типа (6x+1)(6y-1), номер строки: x*(y*6+1)-y</li>
         <li>Составные типа (6x-1)(6y+1), номер строки: x*(y*6-1)+y</li>
@@ -30,60 +30,86 @@
       </ol>
     </li>
   </ul>
-  <p>Каждое составное число в этих множествах имеет строго определённый номер строки. Зная это, можно вычислить, какие номера соответствуют простым числам.</p>
+  <p>Каждая строка таблицы содержит два числа: 6x+1 и 6x-1. Формулы показывают, какие номера строк заняты составными числами.</p>
 
   <h2>Калькулятор</h2>
-  <p>Введи номер строки из множества 6x+1 (например, 1934):</p>
-  <input type="number" id="n" placeholder="Номер строки">
+  <p>Введи число (например, 29):</p>
+  <input type="number" id="n" placeholder="Число">
   <button onclick="check()">Проверить</button>
   <p id="result"></p>
 
   <h3>Как работает калькулятор:</h3>
   <ol>
-    <li>Ты вводишь номер строки (например, 1934).</li>
-    <li>Калькулятор вычисляет число в множестве 6x+1: (номер - 1) × 6 + 1. Для 1934 это 11599.</li>
-    <li>Проверяет, является ли оно составным типа (6x+1)(6y+1): делит (номер - k) на числа 6y+1 (7, 13, 19...). Если делится без остатка, число составное.</li>
-    <li>Проверяет, является ли оно составным типа (6x-1)(6y-1): делит (номер + k) на числа 6y-1 (5, 11, 17...). Если делится без остатка, число составное.</li>
-    <li>Если ни одна проверка не прошла, число простое.</li>
+    <li>Ты вводишь число (например, 29).</li>
+    <li>Он определяет, к какому множеству оно относится: 6x+1 или 6x-1.</li>
+    <li>Вычисляет номер строки: для 6x+1 — (число - 1) / 6 + 1, для 6x-1 — (число + 1) / 6.</li>
+    <li>Проверяет по формулам, является ли число составным в своём множестве.</li>
+    <li>Если ни одна формула не подходит, число простое.</li>
   </ol>
 
-  <h2>Таблица чисел от 1 до 300</h2>
+  <h2>Таблица чисел (до 300)</h2>
   <table>
-    <tr><td>Строка</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-    <tr><td>1</td><td>1</td><td class="prime">2</td><td class="prime">3</td><td class="composite">4</td><td class="prime">5</td><td class="composite">6</td></tr>
-    <tr><td>2</td><td class="prime">7</td><td class="composite">8</td><td class="composite">9</td><td class="composite">10</td><td class="prime">11</td><td class="composite">12</td></tr>
-    <tr><td>3</td><td class="prime">13</td><td class="composite">14</td><td class="composite">15</td><td class="composite">16</td><td class="prime">17</td><td class="composite">18</td></tr>
-    <tr><td>4</td><td class="prime">19</td><td class="composite">20</td><td class="composite">21</td><td class="composite">22</td><td class="prime">23</td><td class="composite">24</td></tr>
-    <tr><td>5</td><td class="composite">25</td><td class="composite">26</td><td class="composite">27</td><td class="composite">28</td><td class="prime">29</td><td class="composite">30</td></tr>
-    <tr><td>6</td><td class="prime">31</td><td class="composite">32</td><td class="composite">33</td><td class="composite">34</td><td class="composite">35</td><td class="composite">36</td></tr>
-    <!-- До 50 строк (300 чисел) -->
-    <tr><td>50</td><td class="composite">295</td><td class="composite">296</td><td class="composite">297</td><td class="composite">298</td><td class="prime">299</td><td class="composite">300</td></tr>
+    <tr><td>Строка</td><td>6x+1</td><td>6x-1</td></tr>
+    <tr><td>1</td><td>1</td><td class="prime">5</td></tr>
+    <tr><td>2</td><td class="prime">7</td><td class="prime">11</td></tr>
+    <tr><td>3</td><td class="prime">13</td><td class="prime">17</td></tr>
+    <tr><td>4</td><td class="prime">19</td><td class="prime">23</td></tr>
+    <tr><td>5</td><td class="composite">25</td><td class="prime">29</td></tr>
+    <tr><td>6</td><td class="prime">31</td><td class="composite">35</td></tr>
+    <!-- До 50 строк -->
+    <tr><td>50</td><td class="composite">295</td><td class="prime">299</td></tr>
   </table>
   <p>Полная таблица до 300 доступна в <a href="#">документе</a>.</p>
 
   <script>
     function check() {
-      let n = parseInt(document.getElementById('n').value);
-      if (n <= 0) {
-        document.getElementById('result').innerHTML = "Введи номер больше 0";
+      let num = parseInt(document.getElementById('n').value);
+      if (num <= 0) {
+        document.getElementById('result').innerHTML = "Введи число больше 0";
         return;
       }
-      let num = (n - 1) * 6 + 1;
-      let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
-      for (let i = 0; i < divisors1.length; i++) {
-        if (Number.isInteger((n - (i + 2)) / divisors1[i])) {
-          document.getElementById('result').innerHTML = num + " — составное (6x+1)(6y+1)";
-          return;
-        }
+      let isSixPlusOne = (num % 6 === 1);
+      let isSixMinusOne = (num % 6 === 5);
+      if (!isSixPlusOne && !isSixMinusOne) {
+        document.getElementById('result').innerHTML = num + " — не относится к 6x+1 или 6x-1";
+        return;
       }
-      let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
-      for (let i = 0; i < divisors2.length; i++) {
-        if (Number.isInteger((n + i) / divisors2[i])) {
-          document.getElementById('result').innerHTML = num + " — составное (6x-1)(6y-1)";
-          return;
+
+      let row = isSixPlusOne ? Math.floor((num - 1) / 6) + 1 : Math.floor((num + 1) / 6);
+
+      if (isSixPlusOne) {
+        let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
+        for (let i = 0; i < divisors1.length; i++) {
+          if (Number.isInteger((row - (i + 2)) / divisors1[i])) {
+            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y+1)";
+            return;
+          }
         }
+        let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
+        for (let i = 0; i < divisors2.length; i++) {
+          if (Number.isInteger((row + i) / divisors2[i])) {
+            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y-1)";
+            return;
+          }
+        }
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
+      } else {
+        let divisors3 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
+        for (let i = 0; i < divisors3.length; i++) {
+          if (Number.isInteger((row - i) / divisors3[i])) {
+            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y-1)";
+            return;
+          }
+        }
+        let divisors4 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
+        for (let i = 0; i < divisors4.length; i++) {
+          if (Number.isInteger((row + i) / divisors4[i])) {
+            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y+1)";
+            return;
+          }
+        }
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
       }
-      document.getElementById('result').innerHTML = num + " — простое";
     }
   </script>
 </body>
