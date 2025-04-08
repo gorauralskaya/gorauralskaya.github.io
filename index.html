@@ -55,8 +55,8 @@
       <li>Ты вводишь число (например, 29).</li>
       <li>Он определяет, к какому множеству оно относится: 6x+1 или 6x-1.</li>
       <li>Вычисляет номер строки: для 6x+1 — (число - 1) / 6 + 1, для 6x-1 — (число + 1) / 6.</li>
-      <li>Генерирует числа 6y+1 и 6y-1 и проверяет по формулам, составное ли оно.</li>
-      <li>Если ни одна формула не подходит, число простое.</li>
+      <li>Проверяет, делится ли число на 6y+1 или 6y-1, и соответствует ли результат нужному виду.</li>
+      <li>Если есть делитель, число составное; иначе — простое.</li>
     </ol>
 
     <h3>Код калькулятора (можешь скопировать и проверить):</h3>
@@ -78,42 +78,34 @@ function check() {
   let row = isSixPlusOne ? Math.floor((num - 1) / 6) + 1 : Math.floor((num + 1) / 6);
 
   if (isSixPlusOne) {
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div1 = 6 * y + 1; // (6y+1)
-      for (let i = 2; i <= row; i++) {
-        if (Number.isInteger((row - i) / div1)) {
-          document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y+1)";
-          return;
-        }
+    for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y + 1;
+      if (num % div === 0 && ((num / div) % 6 === 1)) {
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y+1)";
+        return;
       }
     }
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div2 = 6 * y - 1; // (6y-1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row + i) / div2)) {
-          document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y-1)";
-          return;
-        }
+    for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y - 1;
+      if (num % div === 0 && ((num / div) % 6 === 5)) {
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y-1)";
+        return;
       }
     }
     document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
   } else {
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div3 = 6 * y + 1; // (6y+1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row - i) / div3)) {
-          document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y-1)";
-          return;
-        }
+    for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y - 1;
+      if (num % div === 0 && ((num / div) % 6 === 1)) {
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y-1)";
+        return;
       }
     }
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div4 = 6 * y - 1; // (6y-1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row + i) / div4)) {
-          document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y+1)";
-          return;
-        }
+    for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y + 1;
+      if (num % div === 0 && ((num / div) % 6 === 5)) {
+        document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y+1)";
+        return;
       }
     }
     document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
@@ -190,8 +182,8 @@ function check() {
       <li>You enter a number (e.g., 29).</li>
       <li>It determines whether it belongs to 6x+1 or 6x-1.</li>
       <li>It calculates the row number: for 6x+1 — (number - 1) / 6 + 1, for 6x-1 — (number + 1) / 6.</li>
-      <li>It generates 6y+1 and 6y-1 numbers and checks if it’s composite using my formulas.</li>
-      <li>If no formula applies, the number is prime.</li>
+      <li>It checks if the number is divisible by 6y+1 or 6y-1, matching the required form.</li>
+      <li>If it has a divisor, it’s composite; otherwise, it’s prime.</li>
     </ol>
 
     <h3>Calculator code (copy and verify):</h3>
@@ -213,42 +205,34 @@ function check(lang) {
   let row = isSixPlusOne ? Math.floor((num - 1) / 6) + 1 : Math.floor((num + 1) / 6);
 
   if (isSixPlusOne) {
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div1 = 6 * y + 1; // (6y+1)
-      for (let i = 2; i <= row; i++) {
-        if (Number.isInteger((row - i) / div1)) {
-          document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y+1)" : "составное (6x+1)(6y+1)");
-          return;
-        }
+    for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y + 1;
+      if (num % div === 0 && ((num / div) % 6 === 1)) {
+        document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y+1)" : "составное (6x+1)(6y+1)");
+        return;
       }
     }
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div2 = 6 * y - 1; // (6y-1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row + i) / div2)) {
-          document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y-1)" : "составное (6x-1)(6y-1)");
-          return;
-        }
+    for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y - 1;
+      if (num % div === 0 && ((num / div) % 6 === 5)) {
+        document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y-1)" : "составное (6x-1)(6y-1)");
+        return;
       }
     }
     document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "prime" : "простое");
   } else {
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div3 = 6 * y + 1; // (6y+1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row - i) / div3)) {
-          document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y-1)" : "составное (6x+1)(6y-1)");
-          return;
-        }
+    for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y - 1;
+      if (num % div === 0 && ((num / div) % 6 === 1)) {
+        document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y-1)" : "составное (6x+1)(6y-1)");
+        return;
       }
     }
-    for (let y = 1; y <= Math.sqrt(row); y++) {
-      let div4 = 6 * y - 1; // (6y-1)
-      for (let i = 0; i <= row; i++) {
-        if (Number.isInteger((row + i) / div4)) {
-          document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y+1)" : "составное (6x-1)(6y+1)");
-          return;
-        }
+    for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+      let div = 6 * y + 1;
+      if (num % div === 0 && ((num / div) % 6 === 5)) {
+        document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y+1)" : "составное (6x-1)(6y+1)");
+        return;
       }
     }
     document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "prime" : "простое");
@@ -310,42 +294,34 @@ function check(lang) {
       let row = isSixPlusOne ? Math.floor((num - 1) / 6) + 1 : Math.floor((num + 1) / 6);
 
       if (isSixPlusOne) {
-        for (let y = 1; y <= Math.sqrt(row); y++) {
-          let div1 = 6 * y + 1; // (6y+1)
-          for (let i = 2; i <= row; i++) {
-            if (Number.isInteger((row - i) / div1)) {
-              document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y+1)" : "составное (6x+1)(6y+1)");
-              return;
-            }
+        for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+          let div = 6 * y + 1;
+          if (num % div === 0 && ((num / div) % 6 === 1)) {
+            document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y+1)" : "составное (6x+1)(6y+1)");
+            return;
           }
         }
-        for (let y = 1; y <= Math.sqrt(row); y++) {
-          let div2 = 6 * y - 1; // (6y-1)
-          for (let i = 0; i <= row; i++) {
-            if (Number.isInteger((row + i) / div2)) {
-              document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y-1)" : "составное (6x-1)(6y-1)");
-              return;
-            }
+        for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+          let div = 6 * y - 1;
+          if (num % div === 0 && ((num / div) % 6 === 5)) {
+            document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y-1)" : "составное (6x-1)(6y-1)");
+            return;
           }
         }
         document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "prime" : "простое");
       } else {
-        for (let y = 1; y <= Math.sqrt(row); y++) {
-          let div3 = 6 * y + 1; // (6y+1)
-          for (let i = 0; i <= row; i++) {
-            if (Number.isInteger((row - i) / div3)) {
-              document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y-1)" : "составное (6x+1)(6y-1)");
-              return;
-            }
+        for (let y = 1; 6 * y - 1 <= Math.sqrt(num); y++) {
+          let div = 6 * y - 1;
+          if (num % div === 0 && ((num / div) % 6 === 1)) {
+            document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x+1)(6y-1)" : "составное (6x+1)(6y-1)");
+            return;
           }
         }
-        for (let y = 1; y <= Math.sqrt(row); y++) {
-          let div4 = 6 * y - 1; // (6y-1)
-          for (let i = 0; i <= row; i++) {
-            if (Number.isInteger((row + i) / div4)) {
-              document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y+1)" : "составное (6x-1)(6y+1)");
-              return;
-            }
+        for (let y = 1; 6 * y + 1 <= Math.sqrt(num); y++) {
+          let div = 6 * y + 1;
+          if (num % div === 0 && ((num / div) % 6 === 5)) {
+            document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "composite (6x-1)(6y+1)" : "составное (6x-1)(6y+1)");
+            return;
           }
         }
         document.getElementById('result' + (lang === 'en' ? '_en' : '')).innerHTML = num + " (" + (lang === 'en' ? "row " : "строка ") + row + ") — " + (lang === 'en' ? "prime" : "простое");
@@ -366,4 +342,4 @@ function check(lang) {
     }
   </script>
 </body>
-                       </html>
+                                           </html>
