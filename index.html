@@ -6,81 +6,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
   <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
     input { font-size: 20px; padding: 5px; width: 150px; }
     button { font-size: 20px; padding: 5px 10px; }
-    table { border-collapse: collapse; margin: 20px 0; }
-    td { border: 1px solid black; padding: 5px; text-align: center; }
-    .prime { background-color: lightgreen; }
-    .composite { background-color: lightcoral; }
-    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
-  </style>
-</head>
-<body>
-  <select id="language" onchange="toggleLanguage()">
-    <option value="ru">Русский</option>
-    <option value="en">English</option>
-  </select>
-
-  <div id="ru" class="lang">
-    <h1>Моя теория простых чисел</h1>
-    <p>Простые числа, кроме 2 и 3, бывают двух типов: 6x+1 (7, 13, 19...) и 6x-1 (5, 11, 17...). Я придумал, как определить их по номеру строки в таблице ниже:</p>
-    <ul>
-      <li>Множество 6x+1 делится на три подмножества:
-        <ol>
-          <li>Составные типа (6x+1)(6y+1), номер строки: x*(y*6+1)+(y+1)</li>
-          <li>Составные типа (6x-1)(6y-1), номер строки: x*(y*6-1)-(y-1)</li>
-          <li>Простые типа 6x+1</li>
-        </ol>
-      </li>
-      <li>Множество 6x-1 делится на три подмножества:
-        <ol>
-          <li>Составные типа (6x+1)(6y-1), номер строки: x*(y*6+1)-y</li>
-          <li>Составные типа (6x-1)(6y+1), номер строки: x*(y*6-1)+y</li>
-          <li>Простые типа 6x-1</li>
-        </ol>
-      </li>
-    </ul>
-    <p>Каждая строка таблицы содержит два числа: 6x+1 и 6x-1. Формулы показывают, какие номера строк заняты составными числами.</p>
-<table>
-  <tr><td>Строка</td><td>6x+1</td><td>6x-1</td></tr>
-  <tr><td>1</td><td>1</td><td class="prime">5</td></tr>
-  <tr><td>2</td><td class="prime">7</td><td class="prime">11</td></tr>
-  <tr><td>3</td><td class="prime">13</td><td class="prime">17</td></tr>
-  <tr><td>4</td><td class="prime">19</td><td class="prime">23</td></tr>
-  <tr><td>5</td><td class="composite">25</td><td class="prime">29</td></tr>
-  <tr><td>6</td><td class="prime">31</td><td class="composite">35</td></tr>
-  <tr><td>7</td><td class="prime">37</td><td class="prime">41</td></tr>
-  <tr><td>8</td><td class="prime">43</td><td class="composite">47</td></tr>
-  <tr><td>9</td><td class="composite">49</td><td class="prime">53</td></tr>
-  <tr><td>10</td><td class="composite">55</td><td class="prime">59</td></tr>
-  <tr><td>11</td><td class="prime">61</td><td class="composite">65</td></tr>
-  <tr><td>12</td><td class="prime">67</td><td class="prime">71</td></tr>
-  <tr><td>13</td><td class="prime">73</td><td class="composite">77</td></tr>
-  <tr><td>14</td><td class="composite">79</td><td class="prime">83</td></tr>
-  <tr><td>15</td><td class="composite">85</td><td class="prime">89</td></tr>
-  <tr><td>16</td><td class="composite">91</td><td class="composite">95</td></tr>
-  <tr><td>17</td><td class="prime">97</td><td class="prime">101</td></tr>
-  <tr><td>18</td><td class="composite">103</td><td class="prime">107</td></tr>
-  <tr><td>19</td><td class="prime">109</td><td class="prime">113</td></tr>
-  <tr><td>20</td><td class="composite">115</td><td class="prime">119</td></tr>
-  <tr><td>21</td><td class="prime">121</td><td class="composite">125</td></tr>
-  <tr><td>22</td><td class="prime">127</td><td class="prime">131</td></tr>
-  <tr><td>23</td><td class="prime">133</td><td clas
-    <h2>Калькулятор</h2>
-    <p>Введи число (например, 29):</p>
-    <input type="number" id="n" placeholder="Число">
-    <button onclick="check()">Проверить</button>
-    <p id="result"></p>
-
-    <h3>Как работает калькулятор:</h3>
-    <ol>
-      <li>Ты вводишь число (например, 29).</li>
-      <li>Он определяет, к какому множеству оно относится: 6x+1 или 6x-1.</li>
-      <li>Вычисляет номер строки: для 6x+1 — (число - 1) / 6 + 1, для 6x-1 — (число + 1) / 6.</li>
-      <li>Проверяет по моим формулам, является ли число составным в своём множестве.</li>
-      <li>Если ни одна формула не подходит, число простое.</li>
-    </ol>
-
-    <h3>Код калькулятора (можешь скопировать и проверить):</h3>
-    <button onclick="copyCode()">Скопировать код</button>
-    <pre><code class="language-javascript">
+    table { border-collapse: collapse; margin: 20px 0; width: 100%; max-width: 400px; }
+    td 
