@@ -13,55 +13,44 @@
 </head>
 <body>
   <h1>Моя теория простых чисел</h1>
-  <p>Все простые числа, кроме 2 и 3, имеют вид 6x+1 или 6x-1. Я придумал, как разделить их на подмножества:</p>
-  <h2>Множество 6x+1</h2>
-  <ul>
-    <li>Составные числа типа (6x+1)(6y+1), формула: ((x*(y*6+1)+(y+1))-1)*6+1</li>
-    <li>Составные числа типа (6x-1)(6y-1), формула: ((x*(y*6-1)-(y-1))-1)*6+1</li>
-    <li>Простые числа типа 6x+1</li>
-  </ul>
-  <h2>Множество 6x-1</h2>
-  <ul>
-    <li>Составные числа типа (6x+1)(6y-1), формула: (x*(y*6+1)-y)*6-1</li>
-    <li>Составные числа типа (6x-1)(6y+1), формула: (x*(y*6-1)+y)*6-1</li>
-    <li>Простые числа типа 6x-1</li>
-  </ul>
+  <p>Все простые числа, кроме 2 и 3, имеют вид 6x+1 или 6x-1. Вот как это работает:</p>
 
-  <h2>Калькулятор простых чисел</h2>
-  <p>Введи номер числа из таблицы ниже (например, 9 для 49):</p>
+  <h5>Калькулятор простых чисел</h5>
+  <p>Введи номер числа из таблицы ниже (например, 7 для проверки):</p>
   <input type="number" id="n" placeholder="Номер">
   <button onclick="check()">Проверить</button>
   <p id="result"></p>
 
-  <h2>Таблица чисел 6x+1 (примеры)</h2>
+  <h2>Таблица чисел от 1 до 300</h2>
   <table>
-    <tr><td>Номер</td><td>Число</td><td>Тип</td></tr>
-    <tr><td>2</td><td class="prime">7</td><td>Простое</td></tr>
-    <tr><td>9</td><td class="composite">49</td><td>(6x+1)(6y+1)</td></tr>
-    <tr><td>16</td><td class="composite">91</td><td>(6x+1)(6y+1)</td></tr>
-    <tr><td>23</td><td class="prime">133</td><td>Простое</td></tr>
-    <tr><td>30</td><td class="composite">175</td><td>(6x+1)(6y+1)</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td><td>4</td><td class="prime">5</td><td>6</td></tr>
+    <tr><td class="prime">7</td><td>8</td><td class="composite">9</td><td>10</td><td class="prime">11</td><td>12</td></tr>
+    <tr><td class="prime">13</td><td>14</td><td class="composite">15</td><td class="composite">16</td><td class="prime">17</td><td>18</td></tr>
+    <tr><td class="prime">19</td><td>20</td><td class="composite">21</td><td>22</td><td class="prime">23</td><td>24</td></tr>
+    <tr><td class="composite">25</td><td>26</td><td class="composite">27</td><td>28</td><td class="prime">29</td><td>30</td></tr>
+    <!-- Продолжение до 300 добавим после твоих инструкций -->
   </table>
 
   <script>
     function check() {
       let n = parseInt(document.getElementById('n').value);
-      let num = (n - 1) * 6 + 1;
-      let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49];
-      for (let i = 0; i < divisors1.length; i++) {
-        if (Number.isInteger((n - (i + 2)) / divisors1[i])) {
-          document.getElementById('result').innerHTML = num + " — составное (6x+1)(6y+1)";
-          return;
+      let num = n; // Пока проверяем само число, а не позицию
+      if (num <= 0 || num > 300) {
+        document.getElementById('result').innerHTML = "Введи число от 1 до 300";
+        return;
+      }
+      let isPrime = true;
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) {
+          isPrime = false;
+          break;
         }
       }
-      let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47];
-      for (let i = 0; i < divisors2.length; i++) {
-        if (Number.isInteger((n + i) / divisors2[i])) {
-          document.getElementById('result').innerHTML = num + " — составное (6x-1)(6y-1)";
-          return;
-        }
+      if (isPrime && num > 1) {
+        document.getElementById('result').innerHTML = num + " — простое";
+      } else {
+        document.getElementById('result').innerHTML = num + " — составное";
       }
-      document.getElementById('result').innerHTML = num + " — простое";
     }
   </script>
 </body>
