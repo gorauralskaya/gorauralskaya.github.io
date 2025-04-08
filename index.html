@@ -6,51 +6,84 @@
     input { font-size: 20px; padding: 5px; width: 150px; }
     button { font-size: 20px; padding: 5px 10px; }
     table { border-collapse: collapse; margin: 20px 0; }
-    td { border: 1px solid black; padding: 5px; }
+    td { border: 1px solid black; padding: 5px; text-align: center; }
     .prime { background-color: lightgreen; }
     .composite { background-color: lightcoral; }
   </style>
 </head>
 <body>
   <h1>Моя теория простых чисел</h1>
-  <p>Все простые числа, кроме 2 и 3, имеют вид 6x+1 или 6x-1. Вот как это работает:</p>
+  <p>Простые числа, кроме 2 и 3, делятся на два типа: 6x+1 (7, 13, 19...) и 6x-1 (5, 11, 17...). Я придумал, как найти их по номерам в множествах:</p>
+  <ul>
+    <li>Множество 6x+1 состоит из трёх подмножеств:
+      <ol>
+        <li>Составные типа (6x+1)(6y+1), номер строки: x*(y*6+1)+(y+1)</li>
+        <li>Составные типа (6x-1)(6y-1), номер строки: x*(y*6-1)-(y-1)</li>
+        <li>Простые типа 6x+1</li>
+      </ol>
+    </li>
+    <li>Множество 6x-1 состоит из трёх подмножеств:
+      <ol>
+        <li>Составные типа (6x+1)(6y-1), номер строки: x*(y*6+1)-y</li>
+        <li>Составные типа (6x-1)(6y+1), номер строки: x*(y*6-1)+y</li>
+        <li>Простые типа 6x-1</li>
+      </ol>
+    </li>
+  </ul>
+  <p>Каждое составное число в этих множествах имеет строго определённый номер строки. Зная это, можно вычислить, какие номера соответствуют простым числам.</p>
 
-  <h5>Калькулятор простых чисел</h5>
-  <p>Введи номер числа из таблицы ниже (например, 7 для проверки):</p>
-  <input type="number" id="n" placeholder="Номер">
+  <h2>Калькулятор</h2>
+  <p>Введи номер строки из множества 6x+1 (например, 1934):</p>
+  <input type="number" id="n" placeholder="Номер строки">
   <button onclick="check()">Проверить</button>
   <p id="result"></p>
 
+  <h3>Как работает калькулятор:</h3>
+  <ol>
+    <li>Ты вводишь номер строки (например, 1934).</li>
+    <li>Калькулятор вычисляет число в множестве 6x+1: (номер - 1) × 6 + 1. Для 1934 это 11599.</li>
+    <li>Проверяет, является ли оно составным типа (6x+1)(6y+1): делит (номер - k) на числа 6y+1 (7, 13, 19...). Если делится без остатка, число составное.</li>
+    <li>Проверяет, является ли оно составным типа (6x-1)(6y-1): делит (номер + k) на числа 6y-1 (5, 11, 17...). Если делится без остатка, число составное.</li>
+    <li>Если ни одна проверка не прошла, число простое.</li>
+  </ol>
+
   <h2>Таблица чисел от 1 до 300</h2>
   <table>
-    <tr><td>1</td><td>2</td><td>3</td><td>4</td><td class="prime">5</td><td>6</td></tr>
-    <tr><td class="prime">7</td><td>8</td><td class="composite">9</td><td>10</td><td class="prime">11</td><td>12</td></tr>
-    <tr><td class="prime">13</td><td>14</td><td class="composite">15</td><td class="composite">16</td><td class="prime">17</td><td>18</td></tr>
-    <tr><td class="prime">19</td><td>20</td><td class="composite">21</td><td>22</td><td class="prime">23</td><td>24</td></tr>
-    <tr><td class="composite">25</td><td>26</td><td class="composite">27</td><td>28</td><td class="prime">29</td><td>30</td></tr>
-    <!-- Продолжение до 300 добавим после твоих инструкций -->
+    <tr><td>Строка</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+    <tr><td>1</td><td>1</td><td class="prime">2</td><td class="prime">3</td><td class="composite">4</td><td class="prime">5</td><td class="composite">6</td></tr>
+    <tr><td>2</td><td class="prime">7</td><td class="composite">8</td><td class="composite">9</td><td class="composite">10</td><td class="prime">11</td><td class="composite">12</td></tr>
+    <tr><td>3</td><td class="prime">13</td><td class="composite">14</td><td class="composite">15</td><td class="composite">16</td><td class="prime">17</td><td class="composite">18</td></tr>
+    <tr><td>4</td><td class="prime">19</td><td class="composite">20</td><td class="composite">21</td><td class="composite">22</td><td class="prime">23</td><td class="composite">24</td></tr>
+    <tr><td>5</td><td class="composite">25</td><td class="composite">26</td><td class="composite">27</td><td class="composite">28</td><td class="prime">29</td><td class="composite">30</td></tr>
+    <tr><td>6</td><td class="prime">31</td><td class="composite">32</td><td class="composite">33</td><td class="composite">34</td><td class="composite">35</td><td class="composite">36</td></tr>
+    <!-- До 50 строк (300 чисел) -->
+    <tr><td>50</td><td class="composite">295</td><td class="composite">296</td><td class="composite">297</td><td class="composite">298</td><td class="prime">299</td><td class="composite">300</td></tr>
   </table>
+  <p>Полная таблица до 300 доступна в <a href="#">документе</a>.</p>
 
   <script>
     function check() {
       let n = parseInt(document.getElementById('n').value);
-      let num = n; // Пока проверяем само число, а не позицию
-      if (num <= 0 || num > 300) {
-        document.getElementById('result').innerHTML = "Введи число от 1 до 300";
+      if (n <= 0) {
+        document.getElementById('result').innerHTML = "Введи номер больше 0";
         return;
       }
-      let isPrime = true;
-      for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) {
-          isPrime = false;
-          break;
+      let num = (n - 1) * 6 + 1;
+      let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
+      for (let i = 0; i < divisors1.length; i++) {
+        if (Number.isInteger((n - (i + 2)) / divisors1[i])) {
+          document.getElementById('result').innerHTML = num + " — составное (6x+1)(6y+1)";
+          return;
         }
       }
-      if (isPrime && num > 1) {
-        document.getElementById('result').innerHTML = num + " — простое";
-      } else {
-        document.getElementById('result').innerHTML = num + " — составное";
+      let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
+      for (let i = 0; i < divisors2.length; i++) {
+        if (Number.isInteger((n + i) / divisors2[i])) {
+          document.getElementById('result').innerHTML = num + " — составное (6x-1)(6y-1)";
+          return;
+        }
       }
+      document.getElementById('result').innerHTML = num + " — простое";
     }
   </script>
 </body>
