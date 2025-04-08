@@ -19,5 +19,31 @@
     <li>Простые числа типа 6x-1</li>
   </ul>
   <p>Это позволяет находить простые числа по их позиции в множестве. Скоро добавлю калькулятор!</p>
+<h2>Калькулятор простых чисел</h2>
+<p>Введи номер числа в множестве 6x+1 (например, 1934):</p>
+<input type="number" id="n" placeholder="Номер">
+<button onclick="check()">Проверить</button>
+<p id="result"></p>
+<script>
+  function check() {
+    let n = parseInt(document.getElementById('n').value);
+    let num = (n - 1) * 6 + 1;
+    let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49];
+    for (let i = 0; i < divisors1.length; i++) {
+      if (Number.isInteger((n - (i + 2)) / divisors1[i])) {
+        document.getElementById('result').innerHTML = num + " — составное (6x+1)(6y+1)";
+        return;
+      }
+    }
+    let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47];
+    for (let i = 0; i < divisors2.length; i++) {
+      if (Number.isInteger((n + i) / divisors2[i])) {
+        document.getElementById('result').innerHTML = num + " — составное (6x-1)(6y-1)";
+        return;
+      }
+    }
+    document.getElementById('result').innerHTML = num + " — простое";
+  }
+</script>
 </body>
 </html>
