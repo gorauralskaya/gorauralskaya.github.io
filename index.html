@@ -9,6 +9,7 @@
     td { border: 1px solid black; padding: 5px; text-align: center; }
     .prime { background-color: lightgreen; }
     .composite { background-color: lightcoral; }
+    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
   </style>
 </head>
 <body>
@@ -43,74 +44,10 @@
     <li>Ты вводишь число (например, 29).</li>
     <li>Он определяет, к какому множеству оно относится: 6x+1 или 6x-1.</li>
     <li>Вычисляет номер строки: для 6x+1 — (число - 1) / 6 + 1, для 6x-1 — (число + 1) / 6.</li>
-    <li>Проверяет по формулам, является ли число составным в своём множестве.</li>
+    <li>Проверяет по моим формулам, является ли число составным в своём множестве.</li>
     <li>Если ни одна формула не подходит, число простое.</li>
   </ol>
 
-  <h2>Таблица чисел (до 300)</h2>
-  <table>
-    <tr><td>Строка</td><td>6x+1</td><td>6x-1</td></tr>
-    <tr><td>1</td><td>1</td><td class="prime">5</td></tr>
-    <tr><td>2</td><td class="prime">7</td><td class="prime">11</td></tr>
-    <tr><td>3</td><td class="prime">13</td><td class="prime">17</td></tr>
-    <tr><td>4</td><td class="prime">19</td><td class="prime">23</td></tr>
-    <tr><td>5</td><td class="composite">25</td><td class="prime">29</td></tr>
-    <tr><td>6</td><td class="prime">31</td><td class="composite">35</td></tr>
-    <!-- До 50 строк -->
-    <tr><td>50</td><td class="composite">295</td><td class="prime">299</td></tr>
-  </table>
-  <p>Полная таблица до 300 доступна в <a href="#">документе</a>.</p>
-
-  <script>
-    function check() {
-      let num = parseInt(document.getElementById('n').value);
-      if (num <= 0) {
-        document.getElementById('result').innerHTML = "Введи число больше 0";
-        return;
-      }
-      let isSixPlusOne = (num % 6 === 1);
-      let isSixMinusOne = (num % 6 === 5);
-      if (!isSixPlusOne && !isSixMinusOne) {
-        document.getElementById('result').innerHTML = num + " — не относится к 6x+1 или 6x-1";
-        return;
-      }
-
-      let row = isSixPlusOne ? Math.floor((num - 1) / 6) + 1 : Math.floor((num + 1) / 6);
-
-      if (isSixPlusOne) {
-        let divisors1 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
-        for (let i = 0; i < divisors1.length; i++) {
-          if (Number.isInteger((row - (i + 2)) / divisors1[i])) {
-            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y+1)";
-            return;
-          }
-        }
-        let divisors2 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
-        for (let i = 0; i < divisors2.length; i++) {
-          if (Number.isInteger((row + i) / divisors2[i])) {
-            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y-1)";
-            return;
-          }
-        }
-        document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
-      } else {
-        let divisors3 = [7, 13, 19, 25, 31, 37, 43, 49, 55];
-        for (let i = 0; i < divisors3.length; i++) {
-          if (Number.isInteger((row - i) / divisors3[i])) {
-            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x+1)(6y-1)";
-            return;
-          }
-        }
-        let divisors4 = [5, 11, 17, 23, 29, 35, 41, 47, 53];
-        for (let i = 0; i < divisors4.length; i++) {
-          if (Number.isInteger((row + i) / divisors4[i])) {
-            document.getElementById('result').innerHTML = num + " (строка " + row + ") — составное (6x-1)(6y+1)";
-            return;
-          }
-        }
-        document.getElementById('result').innerHTML = num + " (строка " + row + ") — простое";
-      }
-    }
-  </script>
-</body>
-</html>
+  <h3>Код калькулятора (можешь скопировать и проверить):</h3>
+  <button onclick="copyCode()">Скопировать код</button>
+  <pre id="calculatorCode">
